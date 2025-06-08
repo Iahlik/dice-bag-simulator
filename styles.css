@@ -190,3 +190,23 @@ details summary {
 .order-list li {
   margin-bottom: 2px;
 }
+ @media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    order: 2;
+    margin-top: 20px;
+    max-height: unset;
+    width: 100%;
+  }
+
+  .game-area {
+    order: 1;
+  }
+
+  .cards-container {
+    flex-direction: column;
+  }
+}
