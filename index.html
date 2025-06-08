@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emulador de Bolsa de Dados - Bolt Action</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <main class="container">
+        <h1>Emulador de Bolsa de Dados - Bolt Action</h1>
+
+        <!-- Paso 1: Configuración de la Partida -->
+        <section id="matchSetup" class="step">
+            <h2>Paso 1: Configuración de la Partida</h2>
+
+            <label for="gamePoints">Puntos de Requisición por jugador: <span id="pointsValue">1000</span></label>
+            <input type="range" id="gamePoints" min="0" max="3000" step="50" value="1000"
+                oninput="document.getElementById('pointsValue').textContent = this.value">
+
+            <label for="numPlayers">Número de Jugadores:</label>
+            <input type="number" id="numPlayers" min="1" max="6" value="2">
+
+            <h3>🎲 Misión Aleatoria</h3>
+            <div class="mission-item">
+                <strong>Objetivo:</strong> <span id="missionObjective">—</span>
+                <button onclick="rollObjective()" title="Lanzar dado de objetivo">🎲</button>
+            </div>
+
+            <div class="mission-item">
+                <strong>Zonas de Despliegue:</strong> <span id="missionZones">—</span>
+                <button onclick="rollZone()" title="Lanzar dado de zona">🎲</button>
+            </div>
+
+            <div class="mission-item">
+                <strong>Tipo de Enfrentamiento:</strong> <span id="missionType">—</span>
+                <button onclick="rollType()" title="Lanzar dado de tipo">🎲</button>
+            </div>
+
+            <button onclick="confirmMatchSetup()">Siguiente</button>
+            <p id="matchWarning" style="color: red; display: none;">⚠️ Debes completar todos los campos y lanzar los
+                tres dados de misión.</p>
+        </section>
+
+        <!-- Paso 2: Detalles de los Jugadores -->
+        <section id="playerSetup" class="step hidden">
+            <h2>Paso 2: Detalles de los Jugadores</h2>
+            <div id="playerInputs"></div>
+            <button onclick="initializeGame()">Iniciar Juego</button>
+        </section>
+
+        <!-- Juego en Progreso -->
+        <section id="game" class="hidden">
+            <div class="main-layout">
+                <!-- Columna principal -->
+                <div class="game-area">
+                    <h2>Juego en Progreso</h2>
+                    <p>Ronda: <span id="roundCounter">1</span></p>
+                    <p>Dados restantes en la bolsa: <span id="bagCount">0</span></p>
+                    <button onclick="drawDice()">Sacar Dado</button>
+                    <div id="results"></div>
+                    <button onclick="nextRound()">Siguiente Ronda</button>
+
+                    <!-- Resumen de la partida -->
+                    <section id="matchSummary" class="hidden">
+                        <details>
+                            <summary>⚙️ Información de la Partida</summary>
+                            <p><strong>Puntos por jugador:</strong> <span id="summaryPoints">—</span></p>
+                            <p><strong>Objetivo:</strong> <span id="summaryObjective">—</span></p>
+                            <p><strong>Zonas:</strong> <span id="summaryZones">—</span></p>
+                            <p><strong>Tipo de Enfrentamiento:</strong> <span id="summaryType">—</span></p>
+                        </details>
+                    </section>
+
+                    <!-- Cartas de jugadores -->
+                    <section id="playerCards" class="cards-container"></section>
+                </div>
+
+                <!-- Columna lateral: historial -->
+                <aside class="sidebar">
+                    <h3 style="color: gold;">Historial</h3>
+                    <div id="history" class="history-scroll"></div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Modal de Bajas -->
+        <div id="casualtyModal" class="modal hidden" role="dialog" aria-label="Modal de bajas">
+            <h3>Registrar Bajas</h3>
+            <div id="casualtyInputs"></div>
+            <button onclick="confirmCasualties()">Confirmar</button>
+        </div>
+
+        <!-- Modal de Mantenimiento de Órdenes -->
+        <div id="maintenanceModal" class="modal hidden" role="dialog" aria-label="Mantenimiento de órdenes">
+            <h3>Mantener Órdenes de Down o Emboscada</h3>
+            <div id="maintenanceInputs"></div>
+            <button onclick="confirmMaintenance()">Confirmar Órdenes</button>
+        </div>
+
+        <!-- Modal para elegir orden al sacar dado -->
+        <div id="orderModal" class="modal hidden">
+            <h3>🎲 Turno de <span id="orderPlayerName"></span></h3>
+            <label for="orderSelect">Selecciona una orden:</label>
+            <select id="orderSelect">
+                <option value="Advance">Advance</option>
+                <option value="Run">Run</option>
+                <option value="Ambush">Ambush</option>
+                <option value="Fire">Fire</option>
+                <option value="Rally">Rally</option>
+                <option value="Down">Down</option>
+            </select>
+            <br />
+            <button onclick="confirmModalOrder()">Confirmar Orden</button>
+        </div>
+
+        <!-- Modal Fin de Ronda 6 -->
+        <div id="gameEndModal" class="modal hidden">
+            <h3>Fin de la Ronda 6</h3>
+            <p>Recuerda: al finalizar el Turno 6, lanza un dado.<br>
+                Con 4, 5 o 6, se juega la Ronda 7. Con 1, 2 o 3, el juego termina.</p>
+            <button onclick="rollEndGameDice()">🎲 Lanzar Dado</button>
+            <p id="endGameResult"></p>
+            <button id="confirmEndGameBtn" class="hidden" onclick="closeEndGameModal()">Aceptar</button>
+        </div>
+
+        <script src="script.js"></script>
+    </main>
+</body>
+
+</html>

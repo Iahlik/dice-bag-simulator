@@ -1,0 +1,192 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #F2D513;
+}
+
+.container {
+  max-width: 960px;
+  margin: 20px auto;
+  background: #3d4035;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #F2D513;
+}
+
+h2, h3, h4 {
+  color: #F2D513;
+  margin-top: 20px;
+}
+
+label {
+  display: inline-block;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+input, select {
+  margin-left: 5px;
+  margin-bottom: 10px;
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+button {
+  padding: 10px 18px;
+  background-color: #906931;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #704d24;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.player-card {
+  flex: 1 1 240px;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  background: #4D5244;
+  color: #F2D513;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}
+
+.step {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #444c3c;
+  box-shadow: 0 0 8px rgba(0,0,0,0.4);
+}
+
+#results {
+  margin-top: 15px;
+}
+
+#history {
+  margin-top: 30px;
+  background: #2d2f28;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.mission-item {
+  margin-bottom: 10px;
+}
+
+details summary {
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #f2d513;
+}
+
+#playerInputs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+#playerInputs > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* espaciado vertical entre campos */
+  padding: 15px;
+  background-color: #1E3A5F;
+  border-radius: 8px;
+  border: 1px solid #F2D513;
+  color: white;
+  min-width: 300px;
+}
+
+.main-layout {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.game-area {
+  flex: 2;
+}
+
+.sidebar {
+  flex: 1;
+  max-height: 600px;
+  overflow-y: auto;
+  background-color: #2f2f2f;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.history-scroll details {
+  background: #3a3a3a;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+}
+
+.history-scroll summary {
+  font-weight: bold;
+  color: gold;
+  cursor: pointer;
+}
+
+.history-scroll ul {
+  margin-top: 0.3rem;
+  padding-left: 1.2rem;
+}
+
+.order-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0.3rem;
+}
+
+.order-list li {
+  margin-bottom: 2px;
+}
