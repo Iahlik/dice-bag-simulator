@@ -34,7 +34,7 @@ label {
 }
 
 input, select {
-  margin-left: 5px;
+  margin-left: 0px;
   margin-bottom: 10px;
   padding: 6px;
   border-radius: 4px;
@@ -46,7 +46,7 @@ input[type="range"] {
 }
 
 button {
-  padding: 10px 18px;
+  padding: 5px 5px;
   background-color: #906931;
   color: white;
   border: none;
@@ -135,7 +135,7 @@ details summary {
 #playerInputs > div {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* espaciado vertical entre campos */
+  gap: 0px; /* espaciado vertical entre campos */
   padding: 15px;
   background-color: #1E3A5F;
   border-radius: 8px;
@@ -190,10 +190,28 @@ details summary {
 .order-list li {
   margin-bottom: 2px;
 }
- @media (max-width: 768px) {
+
+@media (max-width: 768px) {
   .main-layout {
     flex-direction: column;
   }
+
+h1 {
+    font-size: 20px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
 
   .sidebar {
     order: 2;
