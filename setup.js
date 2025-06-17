@@ -1,0 +1,112 @@
+
+
+ let matchPoints = 1000;
+ let matchPlayers = 2;
+ let players = [];
+ let diceBag = [];
+ let round = 1;
+ let actionsByRound = [[]];
+ let gameOver = false;
+
+ function rollObjective() {
+  const r = Math.floor(Math.random() * 6);
+  document.getElementById("missionObjective").textContent = missions.objectives[r];
+}
+
+ function rollZone() {
+  const r = Math.floor(Math.random() * 6);
+  document.getElementById("missionZones").textContent = missions.zones[r];
+}
+
+ function rollType() {
+  const r = Math.floor(Math.random() * 6);
+  document.getElementById("missionType").textContent = missions.types[r];
+}
+
+ function confirmMatchSetup() {
+  const points = +document.getElementById("gamePoints").value;
+  const numPlayers = +document.getElementById("numPlayers").value;
+  const obj = document.getElementById("missionObjective").textContent;
+  const zone = document.getElementById("missionZones").textContent;
+  const type = document.getElementById("missionType").textContent;
+  const warning = document.getElementById("matchWarning");
+
+  if (!points || numPlayers < 1 || obj === "—" || zone === "—" || type === "—") {
+    warning.style.display = "block";
+    return;
+  }
+
+  warning.style.display = "none";
+
+  matchPoints = points;
+  matchPlayers = numPlayers;
+
+  document.getElementById("matchSetup").classList.add("hidden");
+  document.getElementById("playerSetup").classList.remove("hidden");
+
+  setupPlayers();
+}
+
+function setupPlayers() {
+  const container = document.getElementById('playerInputs');
+  container.innerHTML = '';
+  for (let i = 0; i < matchPlayers; i++) {
+    container.innerHTML += `
+      <div id="player-card-${i}" style="border:2px solid #906931;padding:10px;margin:10px 0;border-radius:8px;">
+        <h4>Jugador ${i + 1}</h4>
+        <label>Nombre:</label>
+        <input id="name-${i}" placeholder="Jugador ${i + 1}">
+        <label>Nación:</label>
+        <select id="nation-${i}" onchange="updatePlayerCardColor(${i})">
+          ${nations.map(n => `<option value="${n.name}">${n.emoji} ${n.name}</option>`).join('')}
+        </select>
+        <label>Dados:</label>
+        <input type="number" id="dice-${i}" min="1" value="5">
+        <label>Comandantes:</label>
+        <input type="number" id="cmdQty-${i}" min="0" value="1" onchange="updateCommanderTypes(${i})">
+        <div id="cmdTypes-${i}"></div>
+      </div>`;
+    updateCommanderTypes(i);
+    updatePlayerCardColor(i);
+  }
+}
+
+function updateCommanderTypes(i) {
+  const count = +document.getElementById(`cmdQty-${i}`).value;
+  const div = document.getElementById(`cmdTypes-${i}`);
+  div.innerHTML = '';
+  for (let j = 0; j < count; j++) {
+    div.innerHTML += `
+      <label>Tipo Cmd ${j + 1}:</label>
+      <select id="cmdType-${i}-${j}">
+        <option value="platoon">Pelotón</option>
+        <option value="company">Compañía</option>
+      </select>`;
+  }
+}
+
+function updatePlayerCardColor(i) {
+  const nation = document.getElementById(`nation-${i}`).value;
+  const color = (nations.find(n => n.name === nation) || {}).color || '#444';
+  document.getElementById(`player-card-${i}`).style.background = color;
+}
+
+ function initializeGame() {
+  players.length = 0;
+  diceBag.length = 0;
+  round = 1;
+  gameOver = false;
+  actionsByRound.length = 0;
+  actionsByRound.push([]);
+
+  for (let i = 0; i < matchPlayers; i++) {
+    const name = document.getElementById(`name-${i}`).value || `Jugador ${i + 1}`;
+    const nation = document.getElementById(`nation-${i}`).value;
+    const dice = +document.getElementById(`dice-${i}`).value;
+    players.push({ name, nation, diceTotal: dice, diceLeft: dice, orders: [], losses: 0 });
+    for (let k = 0; k < dice; k++) diceBag.push(i);
+  }
+
+  shuffle(diceBag);
+  renderGame();
+}
