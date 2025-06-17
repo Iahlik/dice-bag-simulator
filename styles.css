@@ -6,6 +6,10 @@ body {
   color: #F2D513;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .container {
   max-width: 960px;
   margin: 20px auto;
@@ -69,6 +73,8 @@ button:hover {
 }
 
 .player-card {
+    width: 100%;
+  box-sizing: border-box;
   flex: 1 1 240px;
   background-color: #333;
   padding: 15px;
@@ -135,7 +141,7 @@ details summary {
 #playerInputs > div {
   display: flex;
   flex-direction: column;
-  gap: 0px; /* espaciado vertical entre campos */
+  gap: 0px;
   padding: 15px;
   background-color: #1E3A5F;
   border-radius: 8px;
@@ -196,52 +202,122 @@ details summary {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
-  color: #000;
+  background: #000000;
+  color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.6);
   z-index: 1000;
 }
-.hidden {
-  display: none;
-}
 
+/* 🔁 Botones flotantes mejorados */
+.fixed-buttons {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
 
 @media (max-width: 768px) {
-  .main-layout {
-    flex-direction: column;
+  body {
+    padding: 10px;
   }
 
-h1 {
+  h1 {
     font-size: 20px;
-}
+    line-height: 1.2;
+  }
 
-h2 {
+  h2 {
     font-size: 18px;
-}
+    margin-bottom: 10px;
+  }
 
-h3 {
+  h3, h4 {
     font-size: 16px;
-}
+  }
 
-h4 {
-    font-size: 14px;
-}
+  .container {
+    padding: 15px;
+    margin: 10px auto;
+  }
 
+  .main-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
 
   .sidebar {
     order: 2;
-    margin-top: 20px;
-    max-height: unset;
+    max-height: 300px;
+    overflow-y: auto;
     width: 100%;
   }
 
   .game-area {
     order: 1;
+    width: 100%;
   }
 
   .cards-container {
     flex-direction: column;
+    gap: 15px;
+  }
+
+  .player-card {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  input, select {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  #playerInputs > div {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .history-scroll ul {
+    padding-left: 1rem;
+  }
+
+  .history-scroll details {
+    font-size: 14px;
+  }
+
+  /* 🔧 Modo móvil para botones flotantes */
+  .fixed-buttons {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .fixed-buttons button {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
   }
 }

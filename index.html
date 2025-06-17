@@ -14,12 +14,11 @@
 <body>
     <main class="container">
 
-        <!-- Botones flotantes -->
-        <button onclick="undoLastAction()" style="position:fixed;bottom:10px;right:10px;z-index:1000;">↩️
-            Deshacer</button>
-        <button onclick="resetGame()" style="position:fixed; bottom:50px; right:10px;">🔁 Nuevo Juego</button>
-        <button onclick="exportGameLog()" style="position:fixed; bottom:90px; right:10px;">📄 Exportar
-            Historial</button>
+    <div class="fixed-buttons-mobile">
+  <button onclick="exportGameLog()">📄 Exportar Historial</button>
+  <button onclick="resetGame()">🔁 Nuevo Juego</button>
+  <button onclick="undoLastAction()">↩️ Deshacer</button>
+</div>
 
         <h1>Emulador de Bolsa de Dados - Bolt Action</h1>
 
