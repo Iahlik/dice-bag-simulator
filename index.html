@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emulador de Bolsa de Dados - Bolt Action</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Favicon (puedes reemplazarlo por otro .ico o PNG de 32x32) -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2997/2997933.png" type="image/png">
 </head>
 
 <body>
     <main class="container">
-<h1>Emulador de Bolsa de Dados - Bolt Action</h1>
+
+        <!-- Botones flotantes -->
+        <button onclick="undoLastAction()" style="position:fixed;bottom:10px;right:10px;z-index:1000;">↩️
+            Deshacer</button>
+        <button onclick="resetGame()" style="position:fixed; bottom:50px; right:10px;">🔁 Nuevo Juego</button>
+        <button onclick="exportGameLog()" style="position:fixed; bottom:90px; right:10px;">📄 Exportar
+            Historial</button>
+
+        <h1>Emulador de Bolsa de Dados - Bolt Action</h1>
 
         <!-- Paso 1: Configuración de la Partida -->
         <section id="matchSetup" class="step">
@@ -54,7 +65,6 @@
         <!-- Juego en Progreso -->
         <section id="game" class="hidden">
             <div class="main-layout">
-                <!-- Columna principal -->
                 <div class="game-area">
                     <h2>Juego en Progreso</h2>
                     <p>Ronda: <span id="roundCounter">1</span></p>
@@ -63,7 +73,6 @@
                     <div id="results"></div>
                     <button onclick="nextRound()">Siguiente Ronda</button>
 
-                    <!-- Resumen de la partida -->
                     <section id="matchSummary" class="hidden">
                         <details>
                             <summary>⚙️ Información de la Partida</summary>
@@ -74,11 +83,9 @@
                         </details>
                     </section>
 
-                    <!-- Cartas de jugadores -->
                     <section id="playerCards" class="cards-container"></section>
                 </div>
 
-                <!-- Columna lateral: historial -->
                 <aside class="sidebar">
                     <h3 style="color: gold;">Historial</h3>
                     <div id="history" class="history-scroll"></div>
@@ -101,20 +108,36 @@
         </div>
 
         <!-- Modal para elegir orden al sacar dado -->
-        <div id="orderModal" class="modal hidden">
-            <h3>🎲 Turno de <span id="orderPlayerName"></span></h3>
-            <label for="orderSelect">Selecciona una orden:</label>
-            <select id="orderSelect">
-                <option value="Advance">Advance</option>
-                <option value="Run">Run</option>
-                <option value="Ambush">Ambush</option>
-                <option value="Fire">Fire</option>
-                <option value="Rally">Rally</option>
-                <option value="Down">Down</option>
-            </select>
-            <br />
-            <button onclick="confirmModalOrder()">Confirmar Orden</button>
-        </div>
+<div id="orderModal" class="modal hidden">
+  <h3>🎲 Turno de <span id="orderPlayerName"></span></h3>
+
+  <label for="orderSelect">Selecciona una orden:</label>
+  <select id="orderSelect" onchange="toggleCommanderOption()">
+    <option value="Advance">Advance</option>
+    <option value="Run">Run</option>
+    <option value="Ambush">Ambush</option>
+    <option value="Fire">Fire</option>
+    <option value="Rally">Rally</option>
+    <option value="Down">Down</option>
+  </select>
+
+  <div id="commanderCheckContainer" class="hidden" style="margin-top:10px;">
+    <label>
+      <input type="checkbox" id="isCommanderUsed" onchange="toggleExtraOrderCount()"> Activación de comandante
+    </label>
+  </div>
+
+  <div id="extraOrderCountContainer" class="hidden" style="margin-top:10px;">
+    <label>Agrega órdenes adicionales:</label>
+    <input type="number" id="extraOrderCount" min="1" max="4" value="2" onchange="renderExtraOrderFields()">
+  </div>
+
+  <div id="extraOrdersForm" class="hidden" style="margin-top:10px;"></div>
+
+  <button onclick="confirmModalOrder()">Confirmar Orden</button>
+</div>
+
+
 
         <!-- Modal Fin de Ronda 6 -->
         <div id="gameEndModal" class="modal hidden">
@@ -126,6 +149,7 @@
             <button id="confirmEndGameBtn" class="hidden" onclick="closeEndGameModal()">Aceptar</button>
         </div>
 
+        <!-- Scripts -->
         <script src="config.js"></script>
         <script src="setup.js"></script>
         <script src="utils.js"></script>
@@ -133,6 +157,8 @@
         <script src="gameplay.js"></script>
         <script src="orders.js"></script>
         <script src="endgame.js"></script>
+
     </main>
 </body>
+
 </html>

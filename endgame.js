@@ -1,9 +1,10 @@
-
- function confirmMaintenance() {
+function confirmMaintenance() {
   if (round >= 8) {
     endGame("Fin del juego: se alcanzó el límite de rondas.");
     return;
   }
+
+  saveGameStateSnapshot(); // 🔄 Guarda antes de modificar
 
   players.forEach((pl, i) => {
     const kd = document.getElementById(`keepDown-${i}`);
@@ -52,7 +53,9 @@
   checkForGameEnd();
 }
 
- function rollEndGameDice() {
+function rollEndGameDice() {
+  saveGameStateSnapshot(); // 🔄 Guarda antes de lanzar dado
+
   const roll = Math.ceil(Math.random() * 6);
   const resultText = document.getElementById("endGameResult");
   const confirmBtn = document.getElementById("confirmEndGameBtn");
@@ -67,17 +70,18 @@
   confirmBtn.classList.remove("hidden");
 }
 
- function closeEndGameModal() {
+function closeEndGameModal() {
   document.getElementById("gameEndModal").classList.add("hidden");
 }
 
- function endGame(reason) {
+function endGame(reason) {
+  gameOver = true;
   actionsByRound[round - 1].push(reason);
+  updateHistory();
   alert(reason);
-  renderGame(); // Render final
 }
 
- function checkForGameEnd() {
+function checkForGameEnd() {
   if (players.some(p => p.diceTotal <= 0)) {
     endGame("Fin del juego: un jugador quedó sin dados.");
   }

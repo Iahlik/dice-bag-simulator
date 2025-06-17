@@ -1,7 +1,7 @@
-
-
 // Permite declarar una orden Down
- function declareDown(i) {
+function declareDown(i) {
+  saveGameStateSnapshot(); // 🔄 Guarda estado antes de cambiarlo
+
   const pl = players[i];
   if (pl.diceLeft <= 0) return;
 
@@ -19,7 +19,9 @@
 }
 
 // Convierte una orden Ambush en Fire
- function convertAmbush(i) {
+function convertAmbush(i) {
+  saveGameStateSnapshot(); // 🔄 Guarda estado antes de cambiarlo
+
   const pl = players[i];
   const index = pl.orders.indexOf("Ambush");
   if (index !== -1) {

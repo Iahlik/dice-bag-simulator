@@ -1,29 +1,60 @@
+let matchPoints = 1000;
+let matchPlayers = 2;
+let players = [];
+let diceBag = [];
+let round = 1;
+let actionsByRound = [[]];
+let gameOver = false;
+let gameStateHistory = [];
 
+function saveGameStateSnapshot() {
+  const snapshot = {
+    round,
+    matchPoints,
+    matchPlayers,
+    players: JSON.parse(JSON.stringify(players)),
+    diceBag: [...diceBag],
+    actionsByRound: JSON.parse(JSON.stringify(actionsByRound)),
+    gameOver
+  };
+  gameStateHistory.push(snapshot);
+}
 
- let matchPoints = 1000;
- let matchPlayers = 2;
- let players = [];
- let diceBag = [];
- let round = 1;
- let actionsByRound = [[]];
- let gameOver = false;
+function undoLastAction() {
+  if (gameStateHistory.length === 0) {
+    alert("No hay acciones para deshacer.");
+    return;
+  }
 
- function rollObjective() {
+  const last = gameStateHistory.pop();
+
+  round = last.round;
+  matchPoints = last.matchPoints;
+  matchPlayers = last.matchPlayers;
+  players = last.players;
+  diceBag = last.diceBag;
+  actionsByRound = last.actionsByRound;
+  gameOver = last.gameOver;
+
+  renderGame();
+}
+
+function rollObjective() {
   const r = Math.floor(Math.random() * 6);
   document.getElementById("missionObjective").textContent = missions.objectives[r];
 }
 
- function rollZone() {
+function rollZone() {
   const r = Math.floor(Math.random() * 6);
   document.getElementById("missionZones").textContent = missions.zones[r];
 }
 
- function rollType() {
+function rollType() {
   const r = Math.floor(Math.random() * 6);
   document.getElementById("missionType").textContent = missions.types[r];
 }
 
- function confirmMatchSetup() {
+function confirmMatchSetup() {
   const points = +document.getElementById("gamePoints").value;
   const numPlayers = +document.getElementById("numPlayers").value;
   const obj = document.getElementById("missionObjective").textContent;
@@ -91,7 +122,9 @@ function updatePlayerCardColor(i) {
   document.getElementById(`player-card-${i}`).style.background = color;
 }
 
- function initializeGame() {
+function initializeGame() {
+  saveGameStateSnapshot();
+
   players.length = 0;
   diceBag.length = 0;
   round = 1;
@@ -103,7 +136,20 @@ function updatePlayerCardColor(i) {
     const name = document.getElementById(`name-${i}`).value || `Jugador ${i + 1}`;
     const nation = document.getElementById(`nation-${i}`).value;
     const dice = +document.getElementById(`dice-${i}`).value;
-    players.push({ name, nation, diceTotal: dice, diceLeft: dice, orders: [], losses: 0 });
+
+    const qty = +document.getElementById(`cmdQty-${i}`).value;
+    const type = qty > 0 ? document.getElementById(`cmdType-${i}-0`).value : null;
+
+    players.push({
+      name,
+      nation,
+      diceTotal: dice,
+      diceLeft: dice,
+      orders: [],
+      losses: 0,
+      cmdType: type // platoon o company
+    });
+
     for (let k = 0; k < dice; k++) diceBag.push(i);
   }
 
