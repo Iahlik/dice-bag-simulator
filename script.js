@@ -1,4 +1,3 @@
-
 const nations = [
   { name: 'Estados Unidos', emoji: '🇺🇸', color: '#1E3A5F' },
   { name: 'Italia', emoji: '🇮🇹', color: '#006B3C' },
@@ -195,7 +194,7 @@ function nextRound() {
   const div = document.getElementById('casualtyInputs');
   div.innerHTML = '';
   players.forEach((pl, i) => {
-    div.innerHTML += `<label>${pl.name} eliminó:</label><input type="number" min="0" max="${pl.diceLeft}" id="loses-${i}" value="0">`;
+    div.innerHTML += `<label>${pl.name} unidades muertas:</label><input type="number" min="0" max="${pl.diceLeft}" id="loses-${i}" value="0">`;
   });
   document.getElementById('casualtyModal').classList.remove('hidden');
 }
