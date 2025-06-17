@@ -42,16 +42,38 @@ function undoLastAction() {
 function rollObjective() {
   const r = Math.floor(Math.random() * 6);
   document.getElementById("missionObjective").textContent = missions.objectives[r];
+  currentObjectiveDescription = missions.objectivesInfo[r];
 }
 
 function rollZone() {
   const r = Math.floor(Math.random() * 6);
   document.getElementById("missionZones").textContent = missions.zones[r];
+  currentZoneDescription = missions.zonesInfo[r];
 }
 
 function rollType() {
   const r = Math.floor(Math.random() * 6);
   document.getElementById("missionType").textContent = missions.types[r];
+  currentTypeDescription = missions.typesInfo[r];
+}
+
+function showObjectiveInfo() {
+  document.getElementById("missionInfoText").textContent = currentObjectiveDescription || "Ninguna misión asignada aún.";
+  document.getElementById("missionInfoModal").classList.remove("hidden");
+}
+
+function showZoneInfo() {
+  document.getElementById("missionInfoText").textContent = currentZoneDescription || "No hay zona seleccionada.";
+  document.getElementById("missionInfoModal").classList.remove("hidden");
+}
+
+function showTypeInfo() {
+  document.getElementById("missionInfoText").textContent = currentTypeDescription || "No hay tipo definido.";
+  document.getElementById("missionInfoModal").classList.remove("hidden");
+}
+
+function closeMissionInfo() {
+  document.getElementById("missionInfoModal").classList.add("hidden");
 }
 
 function confirmMatchSetup() {

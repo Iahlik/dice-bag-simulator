@@ -36,18 +36,24 @@
 
             <h3>🎲 Misión Aleatoria</h3>
             <div class="mission-item">
-                <strong>Objetivo:</strong> <span id="missionObjective">—</span>
+                <strong>Objetivo:</strong>
+                <span id="missionObjective">—</span>
                 <button onclick="rollObjective()" title="Lanzar dado de objetivo">🎲</button>
+                <button id="objectiveInfoBtn" onclick="showObjectiveInfo()" title="Ver descripción">❓</button>
             </div>
 
             <div class="mission-item">
-                <strong>Zonas de Despliegue:</strong> <span id="missionZones">—</span>
+                <strong>Zonas de Despliegue:</strong>
+                <span id="missionZones">—</span>
                 <button onclick="rollZone()" title="Lanzar dado de zona">🎲</button>
+                <button onclick="showZoneInfo()" title="Ver descripción de zona">❓</button>
             </div>
 
             <div class="mission-item">
-                <strong>Tipo de Enfrentamiento:</strong> <span id="missionType">—</span>
+                <strong>Tipo de Enfrentamiento:</strong>
+                <span id="missionType">—</span>
                 <button onclick="rollType()" title="Lanzar dado de tipo">🎲</button>
+                <button onclick="showTypeInfo()" title="Ver descripción de tipo">❓</button>
             </div>
 
             <button onclick="confirmMatchSetup()">Siguiente</button>
@@ -108,34 +114,35 @@
         </div>
 
         <!-- Modal para elegir orden al sacar dado -->
-<div id="orderModal" class="modal hidden">
-  <h3>🎲 Turno de <span id="orderPlayerName"></span></h3>
+        <div id="orderModal" class="modal hidden">
+            <h3>🎲 Turno de <span id="orderPlayerName"></span></h3>
 
-  <label for="orderSelect">Selecciona una orden:</label>
-  <select id="orderSelect" onchange="toggleCommanderOption()">
-    <option value="Advance">Advance</option>
-    <option value="Run">Run</option>
-    <option value="Ambush">Ambush</option>
-    <option value="Fire">Fire</option>
-    <option value="Rally">Rally</option>
-    <option value="Down">Down</option>
-  </select>
+            <label for="orderSelect">Selecciona una orden:</label>
+            <select id="orderSelect" onchange="toggleCommanderOption()">
+                <option value="Advance">Advance</option>
+                <option value="Run">Run</option>
+                <option value="Ambush">Ambush</option>
+                <option value="Fire">Fire</option>
+                <option value="Rally">Rally</option>
+                <option value="Down">Down</option>
+            </select>
 
-  <div id="commanderCheckContainer" class="hidden" style="margin-top:10px;">
-    <label>
-      <input type="checkbox" id="isCommanderUsed" onchange="toggleExtraOrderCount()"> Activación de comandante
-    </label>
-  </div>
+            <div id="commanderCheckContainer" class="hidden" style="margin-top:10px;">
+                <label>
+                    <input type="checkbox" id="isCommanderUsed" onchange="toggleExtraOrderCount()"> Activación de
+                    comandante
+                </label>
+            </div>
 
-  <div id="extraOrderCountContainer" class="hidden" style="margin-top:10px;">
-    <label>Agrega órdenes adicionales:</label>
-    <input type="number" id="extraOrderCount" min="1" max="4" value="2" onchange="renderExtraOrderFields()">
-  </div>
+            <div id="extraOrderCountContainer" class="hidden" style="margin-top:10px;">
+                <label>Agrega órdenes adicionales:</label>
+                <input type="number" id="extraOrderCount" min="1" max="4" value="2" onchange="renderExtraOrderFields()">
+            </div>
 
-  <div id="extraOrdersForm" class="hidden" style="margin-top:10px;"></div>
+            <div id="extraOrdersForm" class="hidden" style="margin-top:10px;"></div>
 
-  <button onclick="confirmModalOrder()">Confirmar Orden</button>
-</div>
+            <button onclick="confirmModalOrder()">Confirmar Orden</button>
+        </div>
 
 
 
@@ -159,6 +166,12 @@
         <script src="endgame.js"></script>
 
     </main>
+
+    <div id="missionInfoModal" class="modal hidden">
+        <h3>Objetivo</h3>
+        <p id="missionInfoText"></p>
+        <button onclick="closeMissionInfo()">Cerrar</button>
+    </div>
 </body>
 
 </html>
