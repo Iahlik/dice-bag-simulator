@@ -178,3 +178,50 @@ function initializeGame() {
   shuffle(diceBag);
   renderGame();
 }
+
+function resetGame() {
+  const confirmar = confirm("¿Estás seguro de que deseas reiniciar la partida? Se perderá todo el progreso.");
+  if (!confirmar) return;
+
+  // Reinicia todos los valores a su estado inicial
+  matchPoints = 1000;
+  matchPlayers = 2;
+  players = [];
+  diceBag = [];
+  round = 1;
+  actionsByRound = [[]];
+  gameOver = false;
+  gameStateHistory = [];
+
+  // Oculta secciones de juego y muestra configuración inicial
+  document.getElementById('game').classList.add('hidden');
+  document.getElementById('playerSetup').classList.add('hidden');
+  document.getElementById('matchSetup').classList.remove('hidden');
+
+  // Reinicia inputs
+  document.getElementById('gamePoints').value = 1000;
+  document.getElementById('pointsValue').textContent = 1000;
+  document.getElementById('numPlayers').value = 2;
+  document.getElementById('missionObjective').textContent = '—';
+  document.getElementById('missionZones').textContent = '—';
+  document.getElementById('missionType').textContent = '—';
+  document.getElementById('matchWarning').style.display = 'none';
+
+  // Limpiar contenedores
+  document.getElementById('playerInputs').innerHTML = '';
+  document.getElementById('playerCards').innerHTML = '';
+  document.getElementById('history').innerHTML = '';
+  document.getElementById('summaryPoints').textContent = '—';
+  document.getElementById('summaryObjective').textContent = '—';
+  document.getElementById('summaryZones').textContent = '—';
+  document.getElementById('summaryType').textContent = '—';
+
+  // Cierra modales si están abiertos
+  document.getElementById('casualtyModal').classList.add('hidden');
+  document.getElementById('maintenanceModal').classList.add('hidden');
+  document.getElementById('orderModal').classList.add('hidden');
+  document.getElementById('gameEndModal').classList.add('hidden');
+}
+
+// Hacerla accesible desde el HTML
+window.resetGame = resetGame;
