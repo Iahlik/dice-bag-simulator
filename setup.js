@@ -105,7 +105,7 @@ function setupPlayers() {
   container.innerHTML = '';
   for (let i = 0; i < matchPlayers; i++) {
     container.innerHTML += `
-      <div id="player-card-${i}" style="border:2px solid #906931;padding:10px;margin:10px 0;border-radius:8px;">
+      <div id="player-card-${i}">
         <h4>Jugador ${i + 1}</h4>
         <label>Nombre:</label>
         <input id="name-${i}" placeholder="Jugador ${i + 1}">

@@ -43,12 +43,17 @@ function confirmMaintenance() {
   actionsByRound.push([]);
   round++;
 
+  document.getElementById("maintenanceModal").classList.add("hidden");
+
   if (round === 7) {
     document.getElementById("gameEndModal").classList.remove("hidden");
     return;
   }
 
-  document.getElementById("maintenanceModal").classList.add("hidden");
+  if (round === 8) {
+    endGame("Fin del juego: se completaron todas las rondas.");
+    return;
+  }
   renderGame();
   checkForGameEnd();
 }
@@ -62,16 +67,19 @@ function rollEndGameDice() {
 
   if (roll <= 3) {
     resultText.textContent = `🎲 Resultado: ${roll}. El juego ha terminado.`;
+    confirmBtn.classList.remove("hidden");
     endGame("El juego terminó tras la Ronda 6.");
   } else {
     resultText.textContent = `🎲 Resultado: ${roll}. Se juega una Ronda adicional (Turno 7).`;
+    confirmBtn.classList.remove("hidden");
   }
-
-  confirmBtn.classList.remove("hidden");
 }
 
 function closeEndGameModal() {
   document.getElementById("gameEndModal").classList.add("hidden");
+  if (!gameOver) {
+    renderGame();
+  }
 }
 
 function endGame(reason) {

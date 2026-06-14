@@ -160,7 +160,7 @@ function nextRound() {
   players.forEach((pl, i) => {
     div.innerHTML += `
       <label>${pl.name} unidades muertas:</label>
-      <input type="number" min="0" max="${pl.diceLeft}" id="loses-${i}" value="0">
+      <input type="number" min="0" max="${pl.diceTotal}" id="loses-${i}" value="0">
     `;
   });
 

@@ -5,16 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emulador de Bolsa de Dados - Bolt Action</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
 
-    <!-- Favicon (puedes reemplazarlo por otro .ico o PNG de 32x32) -->
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2997/2997933.png" type="image/png">
 </head>
 
 <body>
     <main class="container">
 
-    <div class="fixed-buttons-mobile">
+    <div class="fixed-buttons">
   <button onclick="exportGameLog()">📄 Exportar Historial</button>
   <button onclick="resetGame()">🔁 Nuevo Juego</button>
   <button onclick="undoLastAction()">↩️ Deshacer</button>
@@ -24,7 +26,10 @@
 
         <!-- Paso 1: Configuración de la Partida -->
         <section id="matchSetup" class="step">
-            <h2>Paso 1: Configuración de la Partida</h2>
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h2>Configuración de la Partida</h2>
+            </div>
 
             <label for="gamePoints">Puntos de Requisición por jugador: <span id="pointsValue">1000</span></label>
             <input type="range" id="gamePoints" min="0" max="3000" step="50" value="1000"
@@ -33,7 +38,7 @@
             <label for="numPlayers">Número de Jugadores:</label>
             <input type="number" id="numPlayers" min="1" max="6" value="2">
 
-            <h3>🎲 Misión Aleatoria</h3>
+            <p class="mission-section-title">🎲 Misión Aleatoria</p>
             <div class="mission-item">
                 <strong>Objetivo:</strong>
                 <span id="missionObjective">—</span>
@@ -62,7 +67,10 @@
 
         <!-- Paso 2: Detalles de los Jugadores -->
         <section id="playerSetup" class="step hidden">
-            <h2>Paso 2: Detalles de los Jugadores</h2>
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h2>Detalles de los Jugadores</h2>
+            </div>
             <div id="playerInputs"></div>
             <button onclick="initializeGame()">Iniciar Juego</button>
         </section>
@@ -71,12 +79,15 @@
         <section id="game" class="hidden">
             <div class="main-layout">
                 <div class="game-area">
-                    <h2>Juego en Progreso</h2>
-                    <p>Ronda: <span id="roundCounter">1</span></p>
-                    <p>Dados restantes en la bolsa: <span id="bagCount">0</span></p>
-                    <button onclick="drawDice()">Sacar Dado</button>
-                    <div id="results"></div>
-                    <button onclick="nextRound()">Siguiente Ronda</button>
+                    <div class="dice-bag-display">
+                        <div class="dice-bag-circle" id="bagCount">0</div>
+                        <div class="dice-bag-info">
+                            <div class="dice-bag-label">Dados en la bolsa</div>
+                            <div class="round-display">Ronda <span id="roundCounter">1</span></div>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="drawDice()">🎲 Sacar Dado</button>
+                    <button onclick="nextRound()">⏭ Siguiente Ronda</button>
 
                     <section id="matchSummary" class="hidden">
                         <details>
@@ -92,7 +103,7 @@
                 </div>
 
                 <aside class="sidebar">
-                    <h3 style="color: gold;">Historial</h3>
+                    <h3>Historial</h3>
                     <div id="history" class="history-scroll"></div>
                 </aside>
             </div>
@@ -171,6 +182,8 @@
         <p id="missionInfoText"></p>
         <button onclick="closeMissionInfo()">Cerrar</button>
     </div>
+
+    <div id="modalBackdrop" class="modal-backdrop hidden"></div>
 </body>
 
 </html>
